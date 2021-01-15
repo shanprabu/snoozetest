@@ -38,13 +38,14 @@ class ProcessValues implements ShouldQueue
     {
         DB::statement("update calculated set actualdays=datediff(delivered,despatched)+1");
         Calculated::chunk(1000, function($data) {
-            foreach($data as $record)
+            ProcessAverage::dispatch($data);
+            /*foreach($data as $record)
             {
                 $updateRecord = Calculated::where('id', $record->id)->first();
                 $avgDays = Calculated::where('from_zone', $updateRecord->from_zone)->where('to_zone', $updateRecord->to_zone)->avg('actualdays');
                 $updateRecord->avgdays = $avgDays;
                 $updateRecord->save();
-            }
+            }*/
         });
     }
 }

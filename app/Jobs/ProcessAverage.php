@@ -14,15 +14,15 @@ use App\Calculated;
 class ProcessAverage implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $recordId;
+    protected $data;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($recordId)
+    public function __construct($data)
     {
-        $this->recordId = $recordId;
+        $this->data = $data;
     }
 
     /**
@@ -32,9 +32,12 @@ class ProcessAverage implements ShouldQueue
      */
     public function handle()
     {
-        $updateRecord = Calculated::where('id', $this->recordId)->first();
-        $avgDays = Calculated::where('from_zone', $updateRecord->from_zone)->where('to_zone', $updateRecord->to_zone)->avg('actualdays');
-        $updateRecord->avgdays = $avgDays;
-        $updateRecord->save();
+        foreach($this->data as $record)
+        {
+            $updateRecord = Calculated::where('id', $record->id)->first();
+            $avgDays = Calculated::where('from_zone', $updateRecord->from_zone)->where('to_zone', $updateRecord->to_zone)->avg('actualdays');
+            $updateRecord->avgdays = $avgDays;
+            $updateRecord->save();    
+        }
     }
 }
