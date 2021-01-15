@@ -32,7 +32,7 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        &nbsp;
+                        <li><a href="{{ route('upload') }}">Upload files</a></li>
                     </ul>
                 </div>
             </div>

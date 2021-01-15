@@ -11,6 +11,7 @@
                           <td>To</td>
                           <td>Actual days</td>
                           <td>Average days</td>
+                          <td>Estimated days</td>
                       </tr>
                   </thead>
                   <tbody>
@@ -22,6 +23,7 @@
                           <td>{{ $deliveryrecord->to_zone }}</td>
                           <td>{{ $deliveryrecord->actualdays }}</td>
                           <td>{{ $deliveryrecord->avgdays }}</td>
+                          <td>{{ $deliveryrecord->estimatedays }}</td>
                       </tr>
                       @endforeach
                   </tbody>
